@@ -1,13 +1,18 @@
 def isSubSeq(sub, whole):
+   jLen = 0
+   counter = 0
+   for i in range(len(sub)):      
+        for j in range(jLen,len(whole)):
+          if sub[i]==whole[j]:
+              counter+=1
+              jLen = j
     
-    for i in sub:
-        if i not in whole:
-            return False
-    return True       
-    
-    
+   if counter == len(sub):
+       return True
+   else:
+       return False
 
 
-s = "abc"
-t = "ahbgdc"
+s = "abdc"
+t = "habgcgdhj"
 print(isSubSeq(s, t))
