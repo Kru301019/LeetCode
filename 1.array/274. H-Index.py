@@ -1,7 +1,7 @@
 def H_Index(citations):
    
     citations.sort(reverse=True)
-   
+    
     result = 0
     for i, num in enumerate(citations):
        if num >= i + 1:
@@ -10,7 +10,7 @@ def H_Index(citations):
        else:
             break
 
-    print(result)
+    return result
     
 citations = [25, 8, 5, 3, 3]
 H_Index(citations)
