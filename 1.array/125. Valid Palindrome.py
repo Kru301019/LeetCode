@@ -1,22 +1,9 @@
 def validPalind(strings):
     strings = strings.lower()
-    newString = ''
-    for string in strings:
+    strings = strings.replace(" ","")
+    print(strings[:len(strings)] , strings[len(strings):0])
+    #return strings[:len(strings)] == strings[len(strings):]
     
-        if string.isalpha():
-            newString += string
     
-    counter = 0
-    isValid = True
-    for i in range(len(newString)-1,-1,-1):
-        if newString[i] != newString[counter]:
-            isValid = False
-        counter+=1
-    if isValid:
-        return 'string is palindrome'
-    else:
-        return 'string is not palindrome'
-    
-
-strings = "race a car"
+strings = "aba"
 print(validPalind(strings))
