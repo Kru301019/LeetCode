@@ -1,7 +1,7 @@
 def Remove_Duplicates_from_Sorted_Array_II(nums):
 	right = len(nums)-1
 	for i in range(len(nums)-2):
-		if [i] ==nums[i+2]:
+		if nums[i] == nums[i+2]:
       		nums[i+2] = nums[right]
 		right-=1
 	
