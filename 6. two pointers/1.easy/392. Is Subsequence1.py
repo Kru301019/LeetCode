@@ -1,6 +1,22 @@
 def Is_Subsequence(s, t):
+
+	up = 0
+	left = 0
 	
-	start = 0
+	while left < len(t):
+		
+		if up<len(s) and s[up] == t[left]:
+			
+			up+=1
+		left+=1
+	return len(s) ==up
+
+s = "abc"
+t = "ahbgdcd"
+print(Is_Subsequence(s, t))
+
+'''
+start = 0
 	for i in range(len(s)):
 		
 		isSUb = False
@@ -13,9 +29,6 @@ def Is_Subsequence(s, t):
 				break
 		if not isSUb:
 			return isSUb
-	print(isSUb)
-
-
-s = "abc"
-t = "ahbgdc"
-Is_Subsequence(s, t)
+	
+	return False
+'''

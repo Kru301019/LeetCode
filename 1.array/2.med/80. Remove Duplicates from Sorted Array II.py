@@ -10,3 +10,5 @@ def Remove_Duplicates_from_Sorted_Array_II(nums):
 
 nums = [12,12,13,13,13,13,14,15,15]
 Remove_Duplicates_from_Sorted_Array_II(nums)
+
+for i in range 
