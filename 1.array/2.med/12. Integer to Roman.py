@@ -1,12 +1,25 @@
-def Integer_to_Roman(nums):
-	nums = list(str(nums))
-	
-	counter = len(nums)-1 
-	for num in nums:
-		num = int(num)
-		print(num , 10**counter)
-		counter -= 1
-		
-
-num = 58
-Integer_to_Roman(num)
+def Integer_to_Roman(nums: int) -> None:
+    romanDict = {
+        'I': 1,
+        'V': 5,
+        'IX': 9,
+        'X': 10,
+        'XL': 40,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
+    
+    romanNum = ''
+   
+    for key, value in reversed(list(romanDict.items())):
+        
+        count = nums // value
+        romanNum += key*count
+        nums %=  value
+        
+    print(romanNum)
+               
+nums = 3749
+Integer_to_Roman(nums)
