@@ -73,3 +73,42 @@ let words = ["apple", "banana", "cherry", "date", "elderberry"];
 let wordsWithA = words.filter(word => word.includes("a"));
 
 console.log(wordsWithA);  // Output: ["apple", "banana", "date"]
+
+//Default Value Assignment (Fallback): The || operator is frequently used to assign default values to variables when the original value is undefined, null, or any other falsy value (e.g., 0, NaN, "").
+let userAge = null;
+let age1 = userAge || 18;  // If userAge is falsy (null), age will be assigned 18.
+console.log(age);  // Output: 18
+
+let i = 0;
+while (i < nums.length) {
+    if (target < nums[i]) {
+        i++;      // Increment i when the condition is true
+        continue; // Skip the rest of the loop and move to the next iteration
+    }
+    i++; // Continue incrementing i as needed
+}
+
+function countWords(sentence) {
+   let wordMap = new Map();
+   let words = sentence.split(' ');
+
+   for (let word of words) {
+       word = word.toLowerCase();
+       wordMap.set(word, (wordMap.get(word) || 0) + 1);
+   }
+
+   return wordMap;
+}
+
+let result = countWords("Hello world hello map");
+console.log(result);
+// Output: Map(3) { 'hello' => 2, 'world' => 1, 'map' => 1 }
+
+let num = 123;
+let str = num.toString();
+console.log(str); // Output: "123"
+console.log(typeof str); // Output: "string"
+
+let num = 5;
+let squared = num ** 2;
+console.log(squared); // Output: 25
