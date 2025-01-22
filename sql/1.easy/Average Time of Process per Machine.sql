@@ -22,20 +22,6 @@ INSERT INTO Activity (machine_id, process_id, activity_type, timestamp) VALUES
 (2, 1, 'start', 2.500),
 (2, 1, 'end', 5.000);
 
-SELECT 
-    a1.machine_id,a2.machine_id
-  
-FROM 
-    activity a1
-JOIN 
-    activity a2 ON a1.machine_id = a2.machine_id 
-                AND a1.process_id = a2.process_id
-                AND a1.activity_type = 'start'
-                AND a2.activity_type = 'end'
-GROUP BY 
-    a1.machine_id, a2.machine_id;
-
-
 WITH ProcessTimes AS (
     SELECT 
         machine_id,
