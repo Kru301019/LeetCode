@@ -41,3 +41,20 @@ FROM
 GROUP BY 
     machine_id;
 
+with cte_query as(
+    SELECT e.name,e.salary
+    from employees e
+    WHERE e.salary >60000
+)
+SELECT avg(salary),name
+from cte_query
+GROUP by name;
+
+  name   | age | department  | salary 
+---------+-----+-------------+--------
+ Alice   |  30 | Engineering |  70000
+ Bob     |  25 | Marketing   |  50000
+ Charlie |  35 | HR          |  60000
+ Diana   |  28 | Finance     |  65000
+(4 rows)
+
