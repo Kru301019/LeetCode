@@ -55,11 +55,3 @@ FROM
 GROUP BY 
     machine_id;
 
-+----------------+---------+
-| Column Name    | Type    |
-+----------------+---------+
-| machine_id     | int     |
-| process_id     | int     |
-| activity_type  | enum    |
-| timestamp      | float   |
-+----------------+---------+
