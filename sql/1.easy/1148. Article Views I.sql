@@ -13,8 +13,8 @@ INSERT INTO Views (article_id, author_id, viewer_id, view_date) VALUES
 (3, 4, 4, '2019-07-21'),
 (3, 4, 4, '2019-07-21');
 
-select DISTINCT v.author_id 
-from Views as v
-where v.author_id = v.viewer_id 
-Order by v.author_id ASC;
+SELECT  DISTINCT v.author_id
+FROM Views AS v
+WHERE v.author_id = v.viewer_id
+ORDER BY v.author_id ASC;
 
