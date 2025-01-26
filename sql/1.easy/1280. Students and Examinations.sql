@@ -70,3 +70,14 @@ cross join subjects sub
 left join Examinations e on e.student_id = s.student_id and sub.subject_name = e.subject_name
 GROUP BY s.student_id, e.subject_name,sub.subject_name
 order BY s.student_id asc;
+
+with cross_table as (
+    select s.student_id,s.student_name, sub.subject_name
+    from Students as s
+    cross join subjects as sub 
+)
+select CT.student_id,CT.student_name, CT.subject_name, count(E.subject_name)
+from Examinations as E 
+right Join cross_table as CT on E.student_id = CT.student_id and E.subject_name = CT.subject_name
+GROUP by CT.student_id, CT.student_name, CT.subject_name
+order by CT.student_id,CT.student_name;
