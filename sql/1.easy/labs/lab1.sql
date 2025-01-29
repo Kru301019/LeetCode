@@ -133,6 +133,86 @@ cust_id | cust_first_name | cust_last_name |    cust_addr_1    | cust_addr_2 |  
        6 | Smartwatch |     250.00
 (6 rows)
 
+ review_id | prod_id | cust_id | review_date |            review_text            | review_rating 
+-----------+---------+---------+-------------+-----------------------------------+---------------
+         1 |       1 |       1 | 2025-01-05  | Amazing laptop, very fast!        |             5
+         2 |       2 |       1 | 2025-01-06  | Great mouse, fits well in hand.   |             4
+         3 |       3 |       2 | 2025-01-07  | Keyboard is decent for the price. |             3
+         4 |       5 |       3 | 2025-01-08  | Webcam works well in low light.   |             4
+         5 |       4 |       4 | 2025-01-09  | Monitor resolution is fantastic.  |             5
+(5 rows)
+
+WITH cte_Q AS (
+SELECT C.cust_first_name,C.cust_id, OD.prod_id
+FROM customers C
+JOIN Orders O USING(cust_id)
+JOIN order_details OD USING(order_id) )
+SELECT *
+FROM cte_Q CQ
+LEFT JOIN Reviews R ON CQ.cust_id = R.cust_id and CQ.prod_id = R.prod_id;
+
+
+
+
+SELECT
+    P.prod_name,
+    COALESCE(TO_CHAR(AVG(R.review_rating), 'FM99.0'), 'N/A') AS product_average
+FROM
+    products P
+    LEFT JOIN reviews R USING(prod_id)
+GROUP BY
+    P.prod_name
+ORDER BY
+    product_average DESC;
+
+
+
+
+WITH customers_review AS (
+    SELECT
+        C.cust_id,
+        C.cust_first_name,
+        P.prod_name
+    FROM
+        customers C
+        JOIN Orders O USING(cust_id)
+        JOIN order_details OD USING(order_id)
+        JOIN products P USING(prod_id)
+    WHERE
+        P.prod_name = 'Laptop'
+)
+SELECT
+    CR.cust_id,
+    CR.cust_first_name,
+    R.review_text
+FROM
+    customers_review AS CR
+    JOIN reviews R USING(cust_id);
+
+   
+
+
+
+
+SELECT
+    O.order_id,
+    C.cust_first_name,
+    O.order_date
+FROM
+    orders O
+    JOIN customers C USING(cust_id)
+WHERE
+    O.order_date > '2025-01-01';
+
+SELECT
+    C.cust_first_name || ' ' || C.cust_last_name AS cust_with_no_review
+FROM
+    customers C
+    LEFT JOIN reviews AS R USING(cust_id)
+WHERE
+    R.cust_id IS NULL;
+
+
 SELECT
     C.cust_first_name ||' '|| C.cust_last_name AS customer_full_name,
     P.prod_name
@@ -153,3 +233,14 @@ FROM
     LEFT JOIN products AS P ON P.prod_id = OD.prod_id
 group by C.cust_first_name
 order by C.cust_first_name;
+
+SELECT
+    P.prod_id,
+    P.prod_name,
+    COALESCE(SUM(O.order_qty), 0) AS total_quantity_sold
+FROM
+    order_details AS O
+    RIGHT JOIN products P USING(prod_id)
+GROUP BY
+    P.prod_id, P.prod_name
+order by prod_id;
