@@ -142,18 +142,25 @@ cust_id | cust_first_name | cust_last_name |    cust_addr_1    | cust_addr_2 |  
          5 |       4 |       4 | 2025-01-09  | Monitor resolution is fantastic.  |             5
 (5 rows)
 
-SELECT r.cust_id, 
-       CONCAT(c.cust_first_name, ' ', c.cust_last_name) AS full_name,
-       p.prod_name
-FROM reviews r
-JOIN customers c ON r.cust_id = c.cust_id
-JOIN products p ON r.prod_id = p.prod_id
-LEFT JOIN (
-    SELECT DISTINCT o.cust_id, od.prod_id
-    FROM orders o
-    JOIN order_details od ON o.order_id = od.order_id
-) AS purchased ON r.cust_id = purchased.cust_id AND r.prod_id = purchased.prod_id
-WHERE purchased.cust_id IS NULL;
+SELECT
+    r.cust_id,
+    CONCAT(c.cust_first_name, ' ', c.cust_last_name) AS full_name,
+    p.prod_name
+FROM
+    reviews r
+    JOIN customers c ON r.cust_id = c.cust_id
+    JOIN products p ON r.prod_id = p.prod_id
+    LEFT JOIN (
+        SELECT
+            DISTINCT o.cust_id,
+            od.prod_id
+        FROM
+            orders o
+            JOIN order_details od ON o.order_id = od.order_id
+    ) AS purchased ON r.cust_id = purchased.cust_id
+    AND r.prod_id = purchased.prod_id
+WHERE
+    purchased.cust_id IS NULL;
 
 
 
